@@ -1,0 +1,13 @@
+(define (load-AI file)
+	(define env (extend-top-level-environment system-global-environment))
+	(load file env)
+	(load "util.scm" env)
+	(define procedures (eval (list '11MensMorrisAI) env))
+	(display procedures)
+	(if (or (not (all procedure? procedures))
+			(not (= (length procedures) 3))) 
+		(error (string-append "'" file "' did not give 3 procedures (Needs place, move and remove procedures") ()))
+	procedures)
+	#|(list (lambda (state player) (eval (list (car procedures) state player) env))
+		  (lambda (state player) (eval (list (cadr procedures) state player) env))
+		  (lambda (state player) (eval (list (caddr procedures) state player) env))))|#

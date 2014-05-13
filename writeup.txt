@@ -1,0 +1,341 @@
+================================================================================
+Computer Science 1901 - Fall 2012 - University of Minnesota 
+        Final Course Project
+================================================================================
+
+ASSIGNMENT SUBMISSION:
+================================================================================ 
+  Electronic submission using the Moodle Upload Tool
+  Format:  Scheme Source Code File
+           Use random.scm as a template for your submission.
+           Name of file must be [x500 account of person submitting].scm
+             <For example:  zing0021.scm >
+          
+           If working in a group, only one person should submit the file.
+           Name of the file must be [x500 account of person submitting]-[x500 account of partner].scm
+             <For example:  zing0021-salte031.scm>
+
+           Complete the header information at the top of the file with 
+           information for you and your partner. This file is the only file you 
+           need to submit. Do not submit the game engine files we gave you.
+
+  Requirements:
+    Submission must run on MIT Scheme on one of the CSELabs computers in 
+      room 1-260.
+      
+    If you develop the code using another Scheme interpreter (such as Dr Scheme)
+      OR on a computer not on the CSELabs network (such as your laptop or home
+      computer), OR on a computer running a different version of MIT Scheme 
+      relative to Keller 1-260, you are expected to ensure it runs using MIT 
+      Scheme on a CSELabs machine.
+
+    Only one submission is allowed per group. You may resubmit multiple times
+      prior to the due date (in order to fix a bug, enhance your submission,
+      etc.), but the last submission made before the due date will be used for 
+      grading.
+
+INSTRUCTIONS:
+================================================================================
+Collaboration:
+  Project may be worked on in groups of two or done individually (Absolutely no groups of 3).
+
+  General discussion is allowed, however, no sharing of code (including code
+    written in Scheme, pseudo-code, or verbal) is allowed between groups.
+
+  Use of ANY code not written by you or your group is forbidden, except you 
+    may use code from your lab, lecture or from the book, as long as you cite 
+    the source. You can use code from any provided project file without 
+    citation.  This includes all files listed in the "files" section below.
+
+  If you have questions regarding any of these policies, contact a TA for
+    clarification.
+
+Obtaining Help:
+  The TAs are available to answer questions regarding the project during their
+    normally scheduled office hours. General questions about the project such 
+    as clarification of expectations, submission instructions, and how some of 
+    the provided code works can be addressed during lab sessions, however, TAs 
+    will not provide help on specific problems during lab time so that they are
+    available to assist with the current lab assignment.
+
+Source Code:
+  All procedures you write should:
+    +be properly spaced (including line breaks and indentation) for readability.
+    +be commented in such a way that explains your methodology.
+
+Test Cases:
+  You do not need to submit any test cases.
+  You should make sure that your submission runs reliably, without error, and 
+    returns valid moves in all cases. Submissions that generate errors will 
+    be marked down heavily and are difficult to score against grading standards.
+
+ADDITIONAL DETAILS:
+================================================================================
+File Header Format:
+  The header format for your submitted Scheme file is included in the random.scm 
+    file. Be sure to fill in your information as shown.
+
+Submission Instructions:
+  The only file required for you to submit is your AI file named as above. DO
+  NOT submit any of the files that we have provided. We will use the same files
+  that we provided you to run your AIs. NOTE: Any modifications made to files we 
+  provided you will not be available when we run your code. All of your code should
+  be in your AI file.
+
+================================================================================
+Project Overview
+================================================================================
+Purpose:
+  The purpose of the project is to give you a chance to work on a significant
+    (and hopefully enjoyable) programming assignment that incorporates much of
+    the knowledge and skill you have learned throughout the course.
+
+Overview:
+  The goal of this assignment is for you to write Scheme 
+    code to play one player's part in a game called "11MensMorris". 11 Mens Morris
+    is based on the classic board game 9 Mens Morris.
+    11 Mens Morris is a two-person game involving a number of intersections on which 
+    you play pieces. When you form 3 pieces in a row (called a Mill), you get to remove
+    an opponents piece.
+
+    Many parts of this game are already written, and it is already playable by
+    humans. Your task is to write an AI player, which examines the board data
+    and makes strategic moves each turn in an attempt to win the game.
+
+    The remainder of this file contains details about the rules of the game,
+    the referee code, and how your code will be graded.  
+
+
+Files:
+  Here is a list and explanation of the files supplied for this
+    project.  You should copy, rename, and modify the random.scm file
+    below; This is where you should write your player code. The other
+    files mentioned here are files containing referee or informational
+    code. You do not need to understand all these other files in detail, and
+    should not modify them. However, as explained below, these other files
+    contain some information, such as data formats or information accessors,
+    and you may need to use these functions when writing your player code.
+    If you want to MODIFY any of the code in the following files, copy it into
+    your AI file with a new name, as we will not use your copy of these files.
+    You should not need to copy any functions from these files to make calls 
+    with them in your AI.
+
+  11MensMorris.scm -- This file contains the "referee" code that keeps track of 
+    the current status of the board, and gets moves from each player. 
+    It also handles the displaying of the board and checks against illegal 
+    moves. It will call your player-procedure with a copy of the current board 
+    and wait for your move to be returned.
+
+    Also included in this file are constants that specify game parameters. You
+    will be able to read these values from within your file. Generally, these
+    are denoted between asterisks.
+    
+    Finally, when PhageWars++.scm is loaded into scheme, all of the following
+    files are also loaded.  You only need to load PhageWars++.scm to play the 
+    game.
+
+  util.scm -- This file contains all of the game-specific helper code used by
+    11MensMorris.scm. Nearly everything you might want to interact with the board
+    and queue, create/use abstractions, and to lookup information on the state 
+    of the game is there. These are the only procedures that your AI will have access
+    to while running.
+
+  random.scm -- This file is a very simple player that makes a move at 
+    random. You should copy / rename this file and use it as a template for your
+    code. All code you write should be inside the 11MensMorrisAI definition
+    provided by random.scm. 
+
+    random.scm, as well as any other specified player procedure, is loaded
+    when you pass the filename in as an argument to the "play-game" procedure.
+
+  gamestate.scm -- Code used internally for the referee.
+  loader.scm -- Code used to load the AI files.
+  board.txt -- text representation of the board. 
+
+
+
+Description and Rules
+================================================================================
+See the How to Play 11 Mens Morris online for a description of the game that is not 
+specific to our implementation.
+
+Making Moves:
+  On each turn, your AI will be prompted to return a Move. 
+  In the first phase of the game, the referee will call your place function. 
+  Place should return the integer position of where you wish to place your piece.
+
+  In the second phase of the game, the referee will call your move function.
+  Move should return a cons pair of the position of the piece you wish to move as
+  the car of the pair, and the destination of where you wish to move as the cdr
+  of the pair. Moves can only occur along one segment of a line shown on the board.
+
+  At any time after you do a place or move, the referee may call your remove function if
+  you formed a mill. Remove should return the integer position of an opponents piece 
+  that you wish to remove. Remember, you can only remove an opponents piece that is not 
+  currently in a mill unless there is no other choice. 
+
+
+Time Limit:
+  Players must return moves in a timely fashion to avoid delay-of-game
+    forfeiture. The time limit for each player on each turn will be no less than
+    two seconds. 
+
+  If your AI exceeds this limit, you will lose some points for the grading. 
+
+  Exceeding this limit during the round-robin qualifiers for the tournament will
+    disqualify you from the tournament, REGARDLESS of how well your AI does.
+    Exceeding this limit during the tournament will also result in immediate 
+    disqualification. 
+
+  You are encouraged to emphasize strategy, as opposed to spending lots of time 
+    generating a game tree of possible moves and responses. AIs that work by 
+    attempting to predict many possible moves for future turns are time 
+    consuming, and the time limit exists to both discourage this type of AI, and
+    to keep the game moving.
+
+Writing Your Code:
+  To do this project you do NOT need to understand the referee code in
+    '11MensMorris.scm' (However, understanding the game code may help you write
+    your own procedures.)  Your job is to write just a 11MensMorrisAI. Your 
+    procedure will be called by, but be independent of, the referee code. This 
+    means your code will not have access to any of the referee code's local 
+    procedures or local data, and vice versa. We suggest that you begin by using
+    the random player code and some of the procedures found in util.scm.
+
+  Any additional procedures you write must be made local to (i.e., nested 
+    inside) your 11MensMorrisAI. You are also free to use any of the code from
+    the text, from the class web page, or from your own previous assignments.
+    But, for any code you reuse you must include comments indicating the source 
+    of the code. A reminder, the ONLY file you will submit is your x500.scm 
+    file. This means that any modifications to any other file (Util etc.) 
+    will not be available to your AI when we begin running your code.
+
+
+Running the Game (Referee):
+  The game can be set up for 2 human players, 2 computer players, or 1 of each 
+    with the computer being either the first or second player. The first player 
+    procedure loaded becomes Player 1. After loading "11MensMorris.scm" into 
+    Scheme, you can start the game with any combination of human and computer 
+    players using (play-game ...). Some examples follow:
+    
+      (play-game 'human 'human) will start 11MensMorris with two interactive 
+        players.
+
+      (play-game "random.scm" 'human) will start 11MensMorris with Player 1 as 
+        the computer random player found in file "random.scm" and an 
+        interactive, human player for Player 2.
+
+      (play-game "yourcode.scm" "random.scm") will start 11MensMorris with
+        Player 1 as the player-procedure your wrote found in a file named
+        "yourcode.scm" and Player 2 as the random player procedure.
+
+  Note that the player procedures should be in the same directory where you are 
+    running 11MensMorris.scm.  You should only need to load 11MensMorris.scm 
+    before calling (play-game x y) - PhageWars++.scm will load all needed helper
+    files.
+
+
+Collaboration and working in groups:
+  You are permitted and encouraged to work in groups of 2 on this assignment. 
+    You are also allowed to work alone, but groups of 3 or more are strictly 
+    prohibited.
+
+  Remember that misconduct such as copying code (from anyone else if you are 
+    working individually, from anyone outside your group if you are working in a
+    group) or giving others copies of your code is a grave situation and will 
+    have serious repercussions. 
+
+  It is your responsibility to protect your code. If your code is available in 
+    any way publicly, or to anyone outside of your group, you will face similar 
+    consequences to those who used your code. This includes posting code online 
+    without a password or sharing passwords, leaving an open repository or using
+    pastey sites, or any other unforeseen situation where others are able to 
+    access your code.
+
+
+Grading:
+  100 Points total, with possible extra credit, as follows:
+    30 points - your player-procedure makes all legal moves, without crashing, 
+                  for the duration of each game. You do not have to win a game 
+                  to receive these points.
+
+    30 points - organization, style, and apparent effort. Your code will be read
+                  as part of the grading process. Please keep it neat and 
+                  understandable.
+
+    40 points - performance against benchmark computer players in a variety of
+                  trials (for example, against a random player, against a 
+                  challenging offensive player).
+
+
+  One thing to keep in mind is that it is extremely difficult to grade an AI 
+    which cannot complete a game, so while 30 points are directly related to 
+    stability, the performance grade will also suffer if your AI is crashing. It
+    is better to submit a slightly less intelligent AI which never crashes. You 
+    are encouraged to make frequent backups of your code throughout the 
+    development process as a result of this.
+	
+  Do not submit the provided random.scm as your AI. Only submit your-x500.scm, 
+    and not the other given files, such as help.scm.
+
+  ALWAYS test your code on the CSELabs machines, either through SSH or by coming 
+    in to the lab. We will be grading them on these machines, so the best way to
+    ensure there are no version inconsistencies is to test your AI on them.
+
+  Any AI which attempts to subvert the referee program or access their 
+    opponent's AI for any reason will receive a severely reduced grade. If you 
+    think your AI may be subverting the referee, or may be doing something
+    inappropriate, please ask a TA instead of risking a 0 on the project. 
+
+
+Class Tournament:
+  Tournament participants will be chosen with a round-robin competition within
+    each section, facilitated by the TAs. Top finishers from these play-offs 
+    will move on to a championship tournament in lecture. There will be a 
+    separate tournament for the day. Dates will be announced in lecture and on 
+    the schedule when they have been set, but they will be during the last week of classes.
+
+  Success in the tournament is completely separate from the grade you get on
+    this project. Specifically, based on evidence of good effort, programming 
+    style, and the other grading criteria given above, you can get a top grade 
+    regardless of how your program does against other AIs. Your AI only gets
+    bonus points for "being in the tournament" if it makes it to the in-lecture
+    tournament.
+
+  Bonus points will be awarded as follows:
+    First place in the class tournament - 20 bonus points.
+    Second place in the class tournament - 16 bonus points.
+    Third place in the class tournament - 13 bonus points.
+    Taking part in the class tournament - 10 bonus points.
+
+  Other points, described below:
+    Debugging - Up to 5 points.
+
+  If you work in a group of 2, *both* players will get the same score for the 
+    project, including bonus points.
+
+  Participation in the tournament (if selected) is not mandatory, but groups 
+    that are not interested for any reason must contact the TAs via email at or 
+    before the project due date.
+
+  Late submissions, regardless of the skill of the AI, will not be eligible to 
+    participate in the tournament.
+
+
+Bugs:
+  Despite extensive testing and preparation, this is the first semester we have 
+    used 11MensMorris as the game for 1901. As such, there may still be some bugs
+    in the code. If you find any bugs in one of the files provided, please email
+    the TA managing the project (zing0021@umn.edu) with as much information 
+    about the bug as you can provide. If the bug is significant, extra credit may be awarded.
+
+
+Developer Information and Credits``:
+  11MensMorris was developed by Mark Zingler at the University of Minnesota for 
+    the CSCI 1901 course. It was originally written during Fall semester 2012.
+
+  To contact the developer with any questions or concerns, email 
+    zing0021@umn.edu, but please do not contact the developer with questions
+    about your project or anything relating to the course. 
+
+
