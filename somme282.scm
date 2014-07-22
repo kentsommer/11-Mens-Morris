@@ -1,7 +1,6 @@
 ;; Names of creators 
 
   ;; Name of Submitter: Kent Sommer - x500: somme282
-  ;; Name of Partner: Bonsa Tilahun - x500: tilah006 
 
 
 
